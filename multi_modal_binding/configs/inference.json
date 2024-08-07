@@ -1,0 +1,12 @@
+{
+    "general": {
+        "seed": 1,
+        "gpu_id": 0,
+        "debug": false
+    },
+    "inference": {
+        "ensemble_path": "multi_modal_binding/model/trained_weights",
+        "fasta_path": "multi_modal_binding/datasets/CU/CU_example.fa",
+        "precomputed_feature": "multi_modal_binding/datasets/CU"
+    }
+}

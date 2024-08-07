@@ -1,0 +1,37 @@
+{
+    "general": {
+        "seed": 1,
+        "gpu_id": 0,
+        "debug": false
+    },
+    "data": {
+        "fasta_path": "multi_modal_binding/datasets/CU/CU_example.fa",
+        "feature_1": "esm",
+        "feature_2": "esm_if",
+        "data_type": "multi_modal",
+        "precomputed_feature": "multi_modal_binding/datasets/CU",
+        "normalize": true
+    },
+    "model": {
+        "feature_dim_1": 1280,
+        "feature_dim_2": 512,
+        "hidden_dim": 128,
+        "hidden_dim_1": 256,
+        "hidden_dim_2": 256,
+        "noise_level": 0.1,
+        "dropout": 0.2
+    },
+    "training": {
+        "warmup_epochs": 10,
+        "fold_to_use_as_val": 1,
+        "swa_start": 30,
+        "swa_lr": 0.0002,
+        "early_stop_patience": 7,
+        "load_checkpoint": 0,
+        "encoder_learning_rate": 0.0002,
+        "learning_rate": 0.0003,
+        "batch_size": 16384,
+        "epochs": 200,
+        "weight_decay": 0.035
+    }
+}
