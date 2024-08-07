@@ -1,5 +1,3 @@
-Here's a more coherent version of the README:
-
 # ESMBind
 
 ESMBind is a deep learning and physics-based workflow for predicting metal-binding proteins and modeling their 3D structures with bound metal ions. It combines evolutionary scale modeling (ESM) for residue-level metal binding prediction with physics-based protein-metal modeling to generate detailed 3D structures of protein-metal complexes.
