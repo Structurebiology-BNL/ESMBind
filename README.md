@@ -1,6 +1,6 @@
 # ESMBind
 
-ESMBind is a deep learning and physics-based workflow for predicting metal-binding proteins and modeling their 3D structures with bound metal ions. It combines evolutionary scale modeling (ESM) for residue-level metal binding prediction with physics-based protein-metal modeling to generate detailed 3D structures of protein-metal complexes.
+ESMBind ([preprint](https://www.biorxiv.org/content/10.1101/2024.08.09.607368v1)) is a deep learning and physics-based workflow for predicting metal-binding proteins and modeling their 3D structures with bound metal ions. It combines evolutionary scale modeling (ESM) for residue-level metal binding prediction with physics-based protein-metal modeling to generate detailed 3D structures of protein-metal complexes.
 
 ## Dependencies
 
@@ -75,8 +75,19 @@ This project uses data from:
 This source code is licensed under the CSI approved 3-clause BSD license found in the LICENSE file in the root directory of this source tree.
 
 ## Citation
-
-[Citation information to be added]
+If you find our work useful, please cite our work as:
+```
+@article {ESMBind,
+	author = {Dai, Xin and Henderson, Max and Yoo, Shinjae and Liu, Qun},
+	title = {Predict metal-binding proteins and structures through integration of evolutionary-scale and physics-based modeling},
+	elocation-id = {2024.08.09.607368},
+	year = {2024},
+	doi = {10.1101/2024.08.09.607368},
+	publisher = {Cold Spring Harbor Laboratory},
+	URL = {https://www.biorxiv.org/content/early/2024/08/10/2024.08.09.607368},
+	journal = {bioRxiv}
+}
+```
 
 ## Contact
 
