@@ -62,9 +62,9 @@ Please revise the `run-3d-modeling.sh` script to specify the input and output di
 ## Data
 
 This project uses data from:
-- Protein Data Bank (PDB)
-- AlphaFold Protein Structure Database
-- BioLiP database
+- [Protein Data Bank](https://www.rcsb.org/)
+- [AlphaFold Protein Structure Database](https://alphafold.ebi.ac.uk/)
+- [BioLiP database](https://zhanggroup.org/BioLiP/index.cgi)
 
 ## License
 
