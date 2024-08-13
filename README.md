@@ -21,10 +21,6 @@ ESMBind consists of two main components:
 
 ### 1. Deep Learning Model
 
-Certainly. Here's the revised "Inference" section incorporating the information about the pretrained model weights:
-
-### 1. Deep Learning Model
-
 #### Inference
 
 To use the pre-trained model for inference:
