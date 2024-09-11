@@ -33,7 +33,6 @@ We have provided pretrained model weights in the `multi_modal_binding/model/trai
 
 After running the inference script, the predictions will be saved in a pickle file in the `multi_modal_binding/results/` directory, which will be used in the 3D modeling step.
 
-
 #### Training
 
 To train the model from scratch:
@@ -50,14 +49,21 @@ We provide two example scripts, `get_esm_embedding.py` and `get_esm_if_embedding
 
 ### 2. 3D Modeling
 
-After obtaining residue-level predictions, use the following to generate 3D structures with placed metal ions:
+After obtaining residue-level predictions from the deep learning model, follow these steps to generate 3D structures with placed metal ions:
 
-```bash
-cd 3D_modeling
-bash run-3d-modeling.sh
-```
+1. Convert probability predictions to binding residues:
+   ```bash
+   python 3D_modeling/src/parse_dl_results.py path/to/predictions_file.pkl ION_TYPE --lower_factor 0.5
+   ```
+   Replace `path/to/predictions_file.pkl` with the path to your predictions file, `ION_TYPE` with the type of ion you're analyzing (e.g., CA, ZN, MG, etc.), and adjust the `lower_factor` as needed.
 
-Please revise the `run-3d-modeling.sh` script to specify the input and output directories before running. This script processes the deep learning predictions, places metal ions, and performs energy minimization to produce the final 3D structures.
+2. Generate 3D structures:
+   ```bash
+   cd 3D_modeling
+   bash run-3d-modeling.sh
+   ```
+
+   Please revise the `run-3d-modeling.sh` script to specify the input and output directories before running. This script processes the parsed deep learning predictions, places metal ions, and performs energy minimization to produce the final 3D structures.
 
 ## Data
 

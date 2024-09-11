@@ -5,7 +5,6 @@ import logging
 import pickle
 from timeit import default_timer as timer
 from torch.utils.data import DataLoader
-from pathlib import Path
 from utils import logging_related, process_config, load_ensemble_model
 from data.data_process import prep_test_dataset
 

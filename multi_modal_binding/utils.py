@@ -158,67 +158,6 @@ def load_ensemble_model(conf, device, multi_modal=True):
     return models, threshold_f1, threshold_mcc
 
 
-# def process_config(conf_path, config_type="train"):
-#     """
-#     Process the configuration by loading additional model configurations if specified, and setup the output path.
-
-#     Parameters:
-#     - conf_path: the path to the configuration file.
-#     - config_type: The base name of the configuration file, used for directory structuring.
-
-#     Returns:
-#     - A tuple of the updated configuration dictionary and the output path as a Path object (if created).
-#     """
-#     with open(conf_path, "r") as f:
-#         conf = json.load(f)
-#     output_path = None
-
-#     # Determine model config path based on the operational mode: training, testing, or inference
-#     model_config_path = None
-#     if conf.get("training", {}).get("load_checkpoint"):
-#         # Training mode: Load from checkpoint
-#         checkpoint_dir = "/".join(conf["training"]["load_checkpoint"].split("/")[:-1])
-#         model_config_path = f"{checkpoint_dir}/config.json"
-#     elif conf.get("test", {}).get("pretrained_model"):
-#         # Testing mode: Load from predefined model path
-#         model_base_dir = "/".join(conf["test"]["pretrained_model"].split("/")[:-1])
-#         model_config_path = f"{model_base_dir}/config.json"
-#     elif conf.get("test", {}).get("ensemble_path"):
-#         # Testing mode: Load from predefined model path
-#         model_base_dir = "/".join(conf["test"]["ensemble_path"].split("/"))
-#         model_config_path = f"{model_base_dir}/config.json"
-#     elif conf.get("inference", {}).get("pretrained_model"):
-#         # Inference mode: Load from predefined model path
-#         model_base_dir = "/".join(conf["inference"]["pretrained_model"].split("/")[:-1])
-#         model_config_path = f"{model_base_dir}/config.json"
-#     elif conf.get("inference", {}).get("ensemble_path"):
-#         # Inference mode: Load from predefined model path
-#         model_base_dir = "/".join(conf["inference"]["ensemble_path"].split("/"))
-#         model_config_path = f"{model_base_dir}/config.json"
-
-#     # Load and merge the model configuration if a path is defined
-#     if model_config_path:
-#         with open(model_config_path, "r") as f:
-#             conf_model = json.load(f)
-#         conf_model.pop("general", None)  # Remove general settings to avoid conflicts
-#         conf.update(conf_model)  # Combine with main config
-
-#     # Setup the output directory if not in debug mode
-#     if not conf.get("general", {}).get("debug", False):
-#         timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
-#         output_path = Path(f"multi_modal_binding/results/{config_type}") / Path(
-#             timestamp
-#         )
-#         output_path.mkdir(parents=True, exist_ok=True)
-#         conf["output_path"] = "./" + str(output_path)
-#         with open(str(output_path) + "/config.json", "w") as f:
-#             json.dump(conf, f, indent=4)
-
-#     # Wrap the configuration dictionary in a custom dictionary class if used
-#     conf = config_dict.ConfigDict(conf)
-
-#     return conf, output_path
-
 def load_json(file_path):
     """Load and return a JSON file."""
     try:
@@ -231,20 +170,22 @@ def load_json(file_path):
         logging.error(f"Config file not found: {file_path}")
         raise
 
+
 def setup_output_path(conf, config_type):
     """Setup the output directory and return the path."""
     if conf.get("general", {}).get("debug", False):
         return None
-    
+
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M")
     output_path = Path("multi_modal_binding/results") / config_type / timestamp
     output_path.mkdir(parents=True, exist_ok=True)
-    
+
     conf["output_path"] = str(output_path)
     with open(output_path / "config.json", "w") as f:
         json.dump(conf, f, indent=4)
-    
+
     return output_path
+
 
 def process_config(conf_path, config_type="train"):
     """
@@ -261,19 +202,19 @@ def process_config(conf_path, config_type="train"):
         raise ValueError("config_type must be either 'train' or 'inference'")
 
     conf = load_json(conf_path)
-    
+
     if config_type == "inference":
         ensemble_path = conf.get("inference", {}).get("ensemble_path")
         if not ensemble_path:
             raise ValueError("ensemble_path must be specified for inference mode")
-        
+
         ensemble_config_path = Path(ensemble_path) / "config.json"
         ensemble_conf = load_json(ensemble_config_path)
         ensemble_conf.pop("general", None)  # Remove general settings to avoid conflicts
         conf.update(ensemble_conf)  # Combine with main config
-    
+
     output_path = setup_output_path(conf, config_type)
-    
+
     return config_dict.ConfigDict(conf), output_path
 
 
