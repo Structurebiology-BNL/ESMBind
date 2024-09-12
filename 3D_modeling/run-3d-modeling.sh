@@ -7,7 +7,7 @@ set -euo pipefail
 LOGS_DIR="logs"
 LOG_FILE="${LOGS_DIR}/3D_modeling_$(date +%Y%m%d_%H%M%S).log"
 PYTHON_SCRIPT="src/main.py"
-PDB_DIR="Your input structure directory (without metal ions)"
+PDB_DIR="Your input structure directory (mmcif format is recommended)"
 OUTPUT_DIR="Your output directory"
 PREDICTION_RESULT="Residue level prediction result directory"
 

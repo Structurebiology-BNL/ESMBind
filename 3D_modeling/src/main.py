@@ -21,7 +21,6 @@ def main(
     with open(prediction_result, "rb") as f:
         predictions = pickle.load(f)
     temp_dir_path = "./" if debug else None
-    predictions = predictions[ion]
     list_of_ids = list(predictions.keys())
 
     for id in list_of_ids:
@@ -43,10 +42,11 @@ def main(
                 )
                 continue
             try:
+                pdb_id, chain_id = id.split("_")
                 print(f"Processing PDB files for {id}...")
                 ion_to_group = process_pdb_with_ions(
-                    id,
-                    "A",
+                    pdb_id,
+                    chain_id,
                     predictions[id],
                     ion,
                     pdb_directory=pdb_dir,
@@ -55,10 +55,10 @@ def main(
                 )
             except Exception as e:
                 if debug:
-                    print(f"Detailed error while processing PDB files for {id}:")
+                    print(f"Detailed error while processing PDB files for {pdb_id}:")
                     traceback.print_exc()
                 else:
-                    print(f"Error processing PDB files for {id}: {e}")
+                    print(f"Error processing PDB files for {pdb_id}: {e}")
                 error_occurred = True
 
             if not error_occurred:
