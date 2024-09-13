@@ -1,4 +1,5 @@
 import logging
+import os
 import numpy as np
 from Bio import SeqIO
 from sklearn.model_selection import KFold
@@ -125,7 +126,7 @@ def prep_test_dataset(conf, ligand=None):
     with open(conf.inference.fasta_path) as handle:
         recs = list(SeqIO.parse(handle, "fasta"))
 
-    ID_list = [rec.id for rec in recs]
+    ID_list = [rec.id.split("|")[1] for rec in recs]
 
     protein_features = feature_extraction(
         ID_list,
@@ -148,17 +149,18 @@ def multimodal_embedding(
     inference=False,
 ):
     protein_embeddings = {}
+    current_dir=os.path.dirname(__file__)
     max_repr_esm = np.load(
-        "multi_modal_binding/data/normalization_constants/esm_repr_max.npy"
+        os.path.join(current_dir,"normalization_constants/esm_repr_max.npy")
     )
     min_repr_esm = np.load(
-        "multi_modal_binding/data/normalization_constants/esm_repr_min.npy"
+        os.path.join(current_dir,"normalization_constants/esm_repr_min.npy")
     )
     max_repr_esm_if = np.load(
-        "multi_modal_binding/data/normalization_constants/esm_if_repr_max.npy"
+        os.path.join(current_dir,"normalization_constants/esm_if_repr_max.npy")
     )
     min_repr_esm_if = np.load(
-        "multi_modal_binding/data/normalization_constants/esm_if_repr_min.npy"
+        os.path.join(current_dir,"normalization_constants/esm_if_repr_min.npy")
     )
     if inference:
         feature_path_1 = precomputed_feature_path + "/esm"
