@@ -31,10 +31,10 @@ def esm_embedding(ID_list, seq_list, output_path, batch_size, device):
             embedding = (
                 result["representations"][len(model.layers)].detach().cpu().numpy()
             )
-            mask = result["mask"].detach().cpu().numpy()
+            batch_lens=(batch_tokens != alphabet.padding_idx).sum(1)
 
             for seq_num in range(len(embedding)):
-                seq_len = mask[seq_num].sum()
+                seq_len = batch_lens[seq_num]
                 # get rid of cls and eos token
                 seq_emd = embedding[seq_num][1 : (seq_len - 1)]
                 np.save(os.path.join(output_path, batch_labels[seq_num]), seq_emd)
